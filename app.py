@@ -12,12 +12,12 @@ def index():
 
 
 @app.route('/get_end_predictions', methods=['post'])
-def get_prediction_eos():
+def get_prediction():
     try:
-        input_text = ' '.join(request.json['input_text'].split())
-        input_text += ' <mask>'
+        in_txt = ' '.join(request.json['input_text'].split())
+        in_txt += ' <mask>'
         top_k = request.json['top_k']
-        res = main.get_all_predictions(input_text, top_clean=int(top_k))
+        res = main.get_all_predictions(in_txt, top_clean=int(top_k))
         return app.response_class(response=json.dumps(res), status=200, mimetype='application/json')
     except Exception as error:
         err = str(error)
