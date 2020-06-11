@@ -7,6 +7,15 @@ bert_model = BertForMaskedLM.from_pretrained('bert-base-uncased').eval()
 
 top_k = 10
 
+def encode(tokenizer, text_sentence):
+    text_sentence = text_sentence.replace('<mask>', tokenizer.mask_token)
+    #if <mask> is the last token, append a "." so that models dont predict punctuation.
+    if tokenizer.mask_token == text_sentence.split()[-1]:
+        text_sentence += ' .'
+    input_ids = torch.tensor([tokenizer.encode(text_sentence, add_special_tokens=True)])
+    mask_idx = torch.where(input_ids == tokenizer.mask_token_id)[1].tolist()[0]
+    return input_ids, mask_idx
+    
 
 def decode(tokenizer, pred_idx, top_clean):
     ignore_tokens = string.punctuation + '[PAD]'
@@ -17,15 +26,6 @@ def decode(tokenizer, pred_idx, top_clean):
             tokens.append(token.replace('##', ''))
     return '\n'.join(tokens[:top_clean])
 
-
-def encode(tokenizer, text_sentence):
-    text_sentence = text_sentence.replace('<mask>', tokenizer.mask_token)
-    #if <mask> is the last token, append a "." so that models dont predict punctuation.
-    if tokenizer.mask_token == text_sentence.split()[-1]:
-        text_sentence += ' .'
-    input_ids = torch.tensor([tokenizer.encode(text_sentence, add_special_tokens=True)])
-    mask_idx = torch.where(input_ids == tokenizer.mask_token_id)[1].tolist()[0]
-    return input_ids, mask_idx
 
 
 def get_all_predictions(text_sentence, top_clean=5):
