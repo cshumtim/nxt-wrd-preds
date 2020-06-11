@@ -12,7 +12,7 @@ def index():
 
 
 @app.route('/get_end_predictions', methods=['post'])
-def get_prediction():
+def get_prediction_eos():
     try:
         in_txt = ' '.join(request.json['input_text'].split())
         in_txt += ' <mask>'
