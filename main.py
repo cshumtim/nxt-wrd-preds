@@ -1,13 +1,9 @@
-import torch
-import tensorflow as tf
-import tensorflow_hub as hub
+import torch._lowrank
 import string
 
 from transformers import BertTokenizer, BertForMaskedLM, TFBertForMaskedLM
 bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 bert_model = BertForMaskedLM.from_pretrained('bert-base-uncased').eval()
-
-use_model = hub.load('https://tfhub.dev/google/universal-sentence-encoder/4')
 
 top_k = 10
 
@@ -35,11 +31,8 @@ def decode(tokenizer, pred_idx, top_clean):
 def get_all_predictions(text_sentence, top_clean=5):
     print(text_sentence)
     input_ids, mask_idx = encode(bert_tokenizer, text_sentence)
-    message = list(text_sentence)
-    embed = use_model(message)
     with torch.no_grad():
         predict = bert_model(input_ids)[0]
     bert = decode(bert_tokenizer, predict[0, mask_idx, :].topk(top_k).indices.tolist(), top_clean)
-    print(predict[0])
-    print(embed)
+    
     return {'bert': bert}
