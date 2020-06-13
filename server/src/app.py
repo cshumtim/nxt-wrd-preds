@@ -1,9 +1,10 @@
 import flask
 from flask import Flask, request, render_template
+import os
 import json
 import main
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../../static')
 
 
 @app.route('/')
@@ -26,4 +27,4 @@ def get_prediction_eos():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(debug=True, port=int(os.environ.get('PORT', 8080)))

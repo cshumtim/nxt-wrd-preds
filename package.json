@@ -1,0 +1,23 @@
+{
+  "name": "nxt-wrd-preds",
+  "version": "1.0.0",
+  "description": "This is a simple next word preditction web application. <br />\r It uses the BERT pre-trained models from transformers. <br />",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PhantomZ89/nxt-wrd-preds.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PhantomZ89/nxt-wrd-preds/issues"
+  },
+  "homepage": "https://github.com/PhantomZ89/nxt-wrd-preds#readme",
+  "devDependencies": {
+    "firebase-tools": "^8.4.2"
+  }
+}
