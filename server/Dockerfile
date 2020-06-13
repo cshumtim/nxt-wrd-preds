@@ -11,7 +11,7 @@ RUN pip install torch
 RUN pip install numpy
 
 #3
-COPY src /app
+COPY src/ /app
 WORKDIR /app
 
 #4
