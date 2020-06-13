@@ -13,5 +13,6 @@ Start typing in the text box. <br />
 A space key input triggers the model and will then output the predictions. <br />
 
 ## TODO
->Need to fix for hosting on Firebase
->Make outputs clickable
+-Need to fix for hosting on Firebase <br />
+-Make outputs clickable <br />
+-Unable to host on PythonAnywhere as their storage is too small to insall PyTorch
